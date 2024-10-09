@@ -1,7 +1,11 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <x-authentication-card-logo />
+            <div class="flex lg:flex-1">
+                <a href="#" class="-m-1.5 p-1.5 font-bold text-2xl text-white hover:text-indigo-600">
+                strikewak.jeger
+                </a>
+        </div>
         </x-slot>
 
         <div x-data="{ recovery: false }">
