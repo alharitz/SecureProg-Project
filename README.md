@@ -12,7 +12,7 @@ This is a secure forum project built with Laravel 11, designed for user and admi
 
 ## Requirements
 
-- PHP >= 8.1
+- PHP >= 8.2.12
 - Composer
 - MySQL or MariaDB
 - Node.js & NPM (for compiling assets)
