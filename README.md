@@ -1,4 +1,3 @@
-Here’s a `README.md` file template for your **SecureProg-Project** repository. It includes installation steps, how to set up the database (named `secure_prog`), and other important information:
 
 ---
 
