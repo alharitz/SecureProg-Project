@@ -1,6 +1,3 @@
-
----
-
 # SecureProg-Project
 
 This is a secure forum project built with Laravel 11, designed for user and admin management with a dark theme. The project includes authentication, CRUD functionality, and role-based access control (admin vs. normal users).
