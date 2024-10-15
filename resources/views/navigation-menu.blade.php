@@ -1,82 +1,55 @@
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
+
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('admin.dashboard') }}" class="-m-1.5 p-1.5 font-bold text-2xl text-white hover:text-indigo-600">
-                        strikewak.jeger
-                    </a>
-                </div>
+                    <!--admin -->
+                    @if(Auth::user()->is_admin)
+                        <a href="{{ route('admin.dashboard') }}" class="-m-1.5 p-1.5 font-bold text-2xl text-white hover:text-indigo-600">
+                            strikewak.jeger
+                        </a>
+                    <!-- user -->
+                    @else
+                        <a href="{{ route('user.home') }}" class="-m-1.5 p-1.5 font-bold text-2xl text-white hover:text-indigo-600">
+                            strikewak.jeger
+                        </a>
+                    @endif
+                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                    <x-nav-link href="{{ route('forum-management') }}" :active="request()->routeIs('forum-management')">
-                        {{ __('Forum Management') }}
-                    </x-nav-link>
-                    <x-nav-link href="{{ route('user-management') }}" :active="request()->routeIs('user-management')">
-                        {{ __('User Management') }}
-                    </x-nav-link>
+                    <!-- Admin Navigation -->
+                    @if(Auth::user()->is_admin)
+                        <x-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('forum-management') }}" :active="request()->routeIs('forum-management')">
+                            {{ __('Forum Management') }}
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('user-management') }}" :active="request()->routeIs('user-management')">
+                            {{ __('User Management') }}
+                        </x-nav-link>
+                    <!-- User Navigation -->
+                    @else
+                        <x-nav-link href="{{ route('user.home') }}" :active="request()->routeIs('user.home')">
+                            {{ __('Home') }}
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('create-forum') }}" :active="request()->routeIs('create-forum')">
+                            {{ __('Create Forum') }}
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('edit-forum') }}" :active="request()->routeIs('edit-forum')">
+                            {{ __('Edit Forum') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <!-- Teams Dropdown -->
-                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                    <div class="ms-3 relative">
-                        <x-dropdown align="right" width="60">
-                            <x-slot name="trigger">
-                                <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
-                                        {{ Auth::user()->currentTeam->name }}
-
-                                        <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                                        </svg>
-                                    </button>
-                                </span>
-                            </x-slot>
-
-                            <x-slot name="content">
-                                <div class="w-60">
-                                    <!-- Team Management -->
-                                    <div class="block px-4 py-2 text-xs text-gray-400">
-                                        {{ __('Manage Team') }}
-                                    </div>
-
-                                    <!-- Team Settings -->
-                                    <x-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
-                                        {{ __('Team Settings') }}
-                                    </x-dropdown-link>
-
-                                    @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                                        <x-dropdown-link href="{{ route('teams.create') }}">
-                                            {{ __('Create New Team') }}
-                                        </x-dropdown-link>
-                                    @endcan
-
-                                    <!-- Team Switcher -->
-                                    @if (Auth::user()->allTeams()->count() > 1)
-                                        <div class="border-t border-gray-200 dark:border-gray-600"></div>
-
-                                        <div class="block px-4 py-2 text-xs text-gray-400">
-                                            {{ __('Switch Teams') }}
-                                        </div>
-
-                                        @foreach (Auth::user()->allTeams() as $team)
-                                            <x-switchable-team :team="$team" />
-                                        @endforeach
-                                    @endif
-                                </div>
-                            </x-slot>
-                        </x-dropdown>
-                    </div>
-                @endif
-
+            
                 <!-- Settings Dropdown -->
                 <div class="ms-3 relative">
                     <x-dropdown align="right" width="48">
@@ -145,15 +118,27 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('forum-management') }}" :active="request()->routeIs('forum-management')">
-                {{ __('Forum Management') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('user-management') }}" :active="request()->routeIs('user-management')">
-                {{ __('User Management') }}
-            </x-responsive-nav-link>
+            @if(Auth::user()->is_admin)
+                <x-responsive-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
+                    {{ __('Dashboard') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('forum-management') }}" :active="request()->routeIs('forum-management')">
+                    {{ __('Forum Management') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('user-management') }}" :active="request()->routeIs('user-management')">
+                    {{ __('User Management') }}
+                </x-responsive-nav-link>
+            @else
+            <x-responsive-nav-link href="{{ route('user.home') }}" :active="request()->routeIs('user.home')">
+                    {{ __('Home') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('create-forum') }}" :active="request()->routeIs('create-forum')">
+                    {{ __('Create Forum') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('edit-forum') }}" :active="request()->routeIs('edit-forum')">
+                    {{ __('Edit Forum') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
@@ -193,38 +178,6 @@
                     </x-responsive-nav-link>
                 </form>
 
-                <!-- Team Management -->
-                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                    <div class="border-t border-gray-200 dark:border-gray-600"></div>
-
-                    <div class="block px-4 py-2 text-xs text-gray-400">
-                        {{ __('Manage Team') }}
-                    </div>
-
-                    <!-- Team Settings -->
-                    <x-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" :active="request()->routeIs('teams.show')">
-                        {{ __('Team Settings') }}
-                    </x-responsive-nav-link>
-
-                    @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                        <x-responsive-nav-link href="{{ route('teams.create') }}" :active="request()->routeIs('teams.create')">
-                            {{ __('Create New Team') }}
-                        </x-responsive-nav-link>
-                    @endcan
-
-                    <!-- Team Switcher -->
-                    @if (Auth::user()->allTeams()->count() > 1)
-                        <div class="border-t border-gray-200 dark:border-gray-600"></div>
-
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Switch Teams') }}
-                        </div>
-
-                        @foreach (Auth::user()->allTeams() as $team)
-                            <x-switchable-team :team="$team" component="responsive-nav-link" />
-                        @endforeach
-                    @endif
-                @endif
             </div>
         </div>
     </div>
