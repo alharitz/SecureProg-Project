@@ -23,9 +23,7 @@ class CheckIfAdmin
             return $next($request);
         }
 
-        // Redirect non-admins to user home
-        // return redirect()->route('welcome');
-
-        return $next($request);
+        // Redirect unauthorized users to a safe page, like user home
+        return redirect()->route('user.home')->with('error', 'You are unauthorized to access this page');
     }
 }
