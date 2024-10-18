@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Forum;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class EditForumController extends Controller
 {
-    function index(){
-        return view('user.edit-forum');
+    public function index(){
+        return view('forum.edit-forum');
     }
 }

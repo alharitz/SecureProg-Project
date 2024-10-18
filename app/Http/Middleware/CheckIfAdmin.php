@@ -24,6 +24,6 @@ class CheckIfAdmin
         }
 
         // Redirect unauthorized users to a safe page, like user home
-        return redirect()->route('user.home')->with('error', 'You are unauthorized to access this page');
+        return redirect()->route('forum')->with('error', 'You are unauthorized to access this page');
     }
 }

@@ -3,9 +3,9 @@
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\ForumManagementControler;
 use App\Http\Controllers\Admin\UserManagementController;
-use App\Http\Controllers\User\CreateForumController;
-use App\Http\Controllers\User\EditForumController;
-use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Forum\CreateForumController;
+use App\Http\Controllers\Forum\EditForumController;
+use App\Http\Controllers\Forum\ForumController;
 use App\Http\Middleware\CheckIfAdmin;
 use Illuminate\Support\Facades\Route;
 
@@ -34,8 +34,8 @@ Route::middleware([
               }
           } else {
               // Otherwise, redirect to user home page
-              if(request()->route()->getName() !== 'user.home'){
-                  return redirect()->route('user.home');
+              if(request()->route()->getName() !== 'forum'){
+                  return redirect()->route('forum');
               }
           }
     })->name('home');
@@ -48,7 +48,13 @@ Route::middleware([
     });
 
     // User routes
-    Route::get('/user/home', [UserController::class, 'index'])->name('user.home');
-    Route::get('/user/create-forum', [CreateForumController::class, 'index'])->name('create-forum');
-    Route::get('/user/edit-forum', [EditForumController::class, 'index'])->name('edit-forum');
+    Route::get('/forums', [ForumController::class,'index'])->name('forum');
+    Route::get('/forum/create', [CreateForumController::class,'index'])->name('forum.create');
+    Route::get('/forum/edit', [EditForumController::class, 'index'])->name('forum.edit');
+    Route::post('/forum/store',[CreateForumController::class, 'store'])->name('forum.store');
+    Route::get('/forum/{forum}', [ForumController::class,'show'])->name('forum.show');
 });
+
+
+
+
