@@ -32,6 +32,7 @@ class ForumStoreRequest extends FormRequest
         return [
             'title.required' => 'The title is required',
             'content.required' => 'The content is required',
-            'image.mimes' => 'Please upload jpeg, png, or jpg formats.',        ];
+            'image.mimes' => 'Please upload jpeg, png, or jpg formats.',
+        ];
     }
 }

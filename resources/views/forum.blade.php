@@ -13,7 +13,13 @@
                         <div class="flex flex-row justify-between items-center">
                             <!-- tittle and author -->
                             <a href="{{ route('forum.show', $forum->id) }}" class="text-2xl text-white font-bold hover:text-indigo-600">{{ $forum->title }}</a>
-                            <h1 class="text-lg font-bold text-indigo-600">{{ $forum->user->name }}</h1>
+
+                            <div class="flex flex-row gap-3">
+                                <h1 class="text-lg font-bold text-indigo-600">{{ $forum->user->name }}</h1>
+                                @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                                    <img class="h-8 w-8 rounded-full object-cover mr-3" src="{{ $forum->user->profile_photo_url }}" alt="{{ $forum->user->name }}" />
+                                @endif
+                            </div>
                         </div>
                         
                         <!-- Content -->
@@ -37,8 +43,11 @@
                         <div>
                             <p class="text-gray-400">{!! nl2br(e($finalContent)) !!}</p>
                         </div>
-                        <div>
+                        <div class="flex flex-row justify-between">
                             <span class="text-gray-500">{{ $forum->created_at->format('d-m-Y H:i:s') }}</span>
+                            <span class="text-gray-500">
+                                {{ $forum->comments->whereNull('parent_id')->count() }} people commented
+                            </span>
                         </div>
                     </div>
                 </div>
