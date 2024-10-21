@@ -13,7 +13,7 @@ class ForumController extends Controller
     {
         $forums = Forum::orderBy('created_at', 'desc')
             ->orderBy('title', 'desc')
-            ->paginate(10);
+            ->paginate(15);
         
         return view('forum', compact('forums'));
     }

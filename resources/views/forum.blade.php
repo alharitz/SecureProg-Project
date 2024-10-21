@@ -6,7 +6,12 @@
     </x-slot>
 
     <div class="py-12">
+        
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="mb-4">
+            {{ $forums->links() }} 
+        </div>
+
             @foreach ($forums as $forum)
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-5 pl-7 pr-7 mb-4">
                     <div class="flex flex-col gap-2">
