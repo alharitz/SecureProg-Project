@@ -17,7 +17,7 @@ class EditForumController extends Controller
             ->orderBy('created_at', 'desc')
             ->orderBy('updated_at', 'desc')
             ->orderBy('title', 'asc')
-            ->paginate(10);
+            ->paginate(15);
 
         return view('forum.edit-forum', compact('forums'));
     }
