@@ -59,8 +59,12 @@ Route::middleware([
         Route::get('/create', [CreateForumController::class, 'index'])->name('forum.create');
 
         // Edit a forum (view page)
-        Route::get('/edit'  , [EditForumController::class, 'index'])->name('forum.edit');
-        // Route::get('/edit/{forumId}', [EditForumController::class, 'index'])->name('forum.edit');
+        Route::get('/edit', [EditForumController::class, 'index'])->name('forum.edit-index');
+        Route::get('/edit/{forumId}', [EditForumController::class, 'edit'])->name('forum.edit-forum');
+        Route::post('/edit/{forumId}', [EditForumController::class, 'update'])->name('forum.update');
+        Route::post('/forum/{forumId}/remove-image', [EditForumController::class, 'removeImage'])->name('forum.remove-image');
+        Route::delete('/delete/{forumId}', [EditForumController::class, 'destroy'])->name('forum.delete');
+
 
         // Store a newly created forum
         Route::post('/store', [CreateForumController::class, 'store'])->name('forum.store');

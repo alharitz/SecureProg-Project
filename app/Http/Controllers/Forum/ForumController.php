@@ -12,9 +12,10 @@ class ForumController extends Controller
     public function index()
     {
         $forums = Forum::orderBy('created_at', 'desc')
-            ->orderBy('title', 'desc')
+            ->orderBy('updated_at', 'desc')
+            ->orderBy('title', 'asc')
             ->paginate(15);
-        
+
         return view('forum', compact('forums'));
     }
 
@@ -23,14 +24,14 @@ class ForumController extends Controller
     {
         // Find the forum
         $forum = Forum::findOrFail($forumId); // Use findOrFail for automatic 404
-        
+
         // Retrieve the comments related to the forum, including replies
         $comments = Comment::where('forum_id', $forum->id)
             ->whereNull('parent_id') // Fetch only root comments (no parent)
             ->with('replies') // Load replies using eager loading
             ->orderBy('created_at', 'desc')
             ->paginate(15);
-        
+
         // Return view with forum and its comments
         return view('forum.show-forum', compact('forum', 'comments'));
     }
