@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700    ">
 
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -41,7 +41,7 @@
                         <x-nav-link href="{{ route('forum.create') }}" :active="request()->routeIs('forum.create')">
                             {{ __('Create Forum') }}
                         </x-nav-link>
-                        <x-nav-link href="{{ route('forum.edit') }}" :active="request()->routeIs('forum.edit')">
+                        <x-nav-link href="{{ route('forum.edit-index') }}" :active="request()->routeIs('forum.edit-index')">
                             {{ __('Edit Forum') }}
                         </x-nav-link>
                     @endif
@@ -49,7 +49,7 @@
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-            
+
                 <!-- Settings Dropdown -->
                 <div class="ms-3 relative">
                     <x-dropdown align="right" width="48">
@@ -136,7 +136,7 @@
                 <x-responsive-nav-link href="{{ route('forum.create') }}" :active="request()->routeIs('forum.create')">
                     {{ __('Create Forum') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link href="{{ route('forum.edit') }}" :active="request()->routeIs('forum.edit')">
+                <x-responsive-nav-link href="{{ route('forum.edit-index') }}" :active="request()->routeIs('forum.edit-index')">
                     {{ __('Edit Forum') }}
                 </x-responsive-nav-link>
             @endif
