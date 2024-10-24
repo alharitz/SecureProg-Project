@@ -5,6 +5,7 @@ use App\Http\Controllers\Forum\CommentController;
 use App\Http\Controllers\Forum\CreateForumController;
 use App\Http\Controllers\Forum\EditForumController;
 use App\Http\Controllers\Forum\ForumController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\forum\DeleteForumController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\UserManagementController;
@@ -78,5 +79,8 @@ Route::middleware([
 
         // Reply to a comment (if you need it as a separate route)
         Route::post('/{forumId}/comment/{commentId}/reply', [CommentController::class, 'store'])->name('reply.store');
+
+        // Report Forum
+        Route::post('/report/{forumId}', [ReportController::class, 'reportForum'])->name('forum.report');
     });
 });

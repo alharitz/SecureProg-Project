@@ -1,16 +1,33 @@
 <x-app-layout>
     <x-slot name="header">
         <!-- Header title and back button -->
-        <div class="flex flex-row gap-4 items-center">
-            <a class="rounded-full bg-slate-600 px-3 py-3 text-white shadow-sm hover:bg-slate-500" href="{{ route('forum')}}">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-            </svg>
+        <div class="flex flex-row gap-4 items-center justify-between">
+            <div class="flex flex-row gap-4 items-center">
+                <a class="rounded-full bg-slate-600 px-3 py-3 text-white shadow-sm hover:bg-slate-500" href="{{ route('forum')}}">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                    </svg>
 
-            </a>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {!! nl2br(e($forum->title)) !!}
-            </h2>
+                </a>
+                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    {!! nl2br(e($forum->title)) !!}
+                </h2>
+            </div>
+
+{{--            Report Forum--}}
+            <form action="{{ route('forum.report', ['forumId' => $forum->id]) }}" method="POST" onsubmit="return confirmReport()">
+                @csrf
+                <button class=" rounded-full bg-red-600 hover:bg-red-500 px-3 py-3 text-sm font-semibold text-white shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5" />
+                    </svg>
+                </button>
+                <script>
+                    function confirmReport(){
+                        return confirm("Are you sure you want to report this forum?");
+                    }
+                </script>
+            </form>
         </div>
     </x-slot>
 
@@ -55,7 +72,7 @@
                             class="rounded-md bg-yellow-500 hover:bg-yellow-400 px-6 py-2 text-white"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
                             </svg>
                         </button>
 
