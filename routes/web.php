@@ -5,6 +5,7 @@ use App\Http\Controllers\Forum\CommentController;
 use App\Http\Controllers\Forum\CreateForumController;
 use App\Http\Controllers\Forum\EditForumController;
 use App\Http\Controllers\Forum\ForumController;
+use App\Http\Controllers\forum\DeleteForumController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Middleware\CheckIfAdmin;
@@ -63,7 +64,7 @@ Route::middleware([
         Route::get('/edit/{forumId}', [EditForumController::class, 'edit'])->name('forum.edit-forum');
         Route::post('/edit/{forumId}', [EditForumController::class, 'update'])->name('forum.update');
         Route::post('/forum/{forumId}/remove-image', [EditForumController::class, 'removeImage'])->name('forum.remove-image');
-        Route::delete('/delete/{forumId}', [EditForumController::class, 'destroy'])->name('forum.delete');
+        Route::delete('/delete/{forumId}', [DeleteForumController::class, 'destroy'])->name('forum.delete');
 
 
         // Store a newly created forum
