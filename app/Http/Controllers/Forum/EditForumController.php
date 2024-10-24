@@ -52,17 +52,4 @@ class EditForumController extends Controller
 
         return redirect()->route('forum.edit-forum', compact('forumId'))->with('success', 'Forum updated successfully');
     }
-
-    public function destroy($forumId){
-        $forum = Forum::findOrFail($forumId);
-
-        // Delete the associated image if it exists
-        if ($forum->image) {
-            Storage::delete($forum->image);
-        }
-
-        $forum->delete();
-
-        return redirect()->route('forum.edit-index')->with('success', 'Forum deleted successfully');
-    }
 }

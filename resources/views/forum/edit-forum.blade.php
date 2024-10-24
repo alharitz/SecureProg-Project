@@ -21,7 +21,7 @@
             @endif
 
 {{-- Header--}}
-            <div class="mb-4">
+            <div class="mb-4 ">
                 {{ $forums->links() }}
             </div>
 
