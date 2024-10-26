@@ -20,7 +20,7 @@ class CreateForumController extends Controller
 
         // Handle image upload
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('forum-images', 'public'); 
+            $imagePath = $request->file('image')->store('forum-images', 'public');
         }else{
             $imagePath = null;
         }
@@ -29,10 +29,10 @@ class CreateForumController extends Controller
         Forum::create([
             'title' => $validated['title'],
             'content' => $validated['content'],
-            'forum_images_path' => $imagePath, 
+            'forum_images_path' => $imagePath,
             'user_id' => Auth::id(),
         ]);
 
-        return redirect()->route('forum.create')->with('success', 'Forum post created successfully!');
+        return redirect()->route('forum')->with('success', 'Forum post created successfully!');
     }
 }

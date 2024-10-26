@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <a href="." class="p-1.5 font-black text-3xl text-white font-mono">
+            <a href="." class="p-1.5 font-black text-3xl text-white font-mono hover:text-indigo-600">
             strikewak.jeger
             </a>
         </x-slot>
