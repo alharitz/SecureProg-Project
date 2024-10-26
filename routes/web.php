@@ -41,15 +41,17 @@ Route::middleware([
     })->name('home');
 
     // Admin routes (protected by CheckIfAdmin middleware)
-    Route::middleware([CheckIfAdmin::class])->group(function () {
+    Route::middleware([CheckIfAdmin::class])->prefix('admin')->group(function () {
         // Admin dashboard
-        Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
         // Forum management for admins
-        Route::get('/admin/forum-management', [ForumManagementControler::class, 'index'])->name('forum-management');
+        Route::get('/forum-management', [ForumManagementControler::class, 'index'])->name('forum-management');
+        Route::get('/report/{forumId}', [ReportController::class, 'review'])->name('report');
 
         // User management for admins
-        Route::get('/admin/user-management', [UserManagementController::class, 'index'])->name('user-management');
+        Route::get('/user-management', [UserManagementController::class, 'index'])->name('user-management');
+        Route::delete('/user/{userId}', [UserManagementController::class, 'delete'])->name('user.delete');
     });
 
     // User routes (accessible to both regular users and admins)

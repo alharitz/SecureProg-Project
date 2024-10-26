@@ -24,4 +24,9 @@ class Forum extends Model
     public function comments(){
         return $this->hasMany(Comment::class);
     }
+
+    public function report()
+    {
+        return $this->hasOne(Report::class);
+    }
 }

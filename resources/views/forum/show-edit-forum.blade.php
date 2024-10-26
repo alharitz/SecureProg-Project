@@ -28,7 +28,6 @@
                     }
                 </script>
             </form>
-
         </div>
     </x-slot>
 

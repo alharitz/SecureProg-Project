@@ -1,79 +1,84 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{-- {{ __('Forum Management') }} --}}
-            Forum Management
+            {{ __('Forum Management') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
+
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-gray-900 dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
-                <!-- Forum CRUD system -->
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-medium text-gray-200">Forum Posts</h3>
-                    {{-- <a href="{{ route('posts.create') }}" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg"> --}}
-                    <a href="#" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg">
-                        Create Post
-                    </a>
+            <div class="mb-4">
+                {{ $forums->links() }}
+            </div>
+
+            @if($forums->count() == 0)
+                <h1 class="text-base text-gray-400 mt-10">No reported forum, have a good day!</h1>
+            @endif
+
+            @foreach ($forums as $forum)
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-5 pl-7 pr-7 mb-4">
+                    <div class="flex flex-col gap-2">
+                        <div class="flex flex-row justify-between items-center">
+                            <!-- tittle and author -->
+                            <a href="{{ route('report', $forum->id) }}" class="text-2xl text-white font-bold hover:text-indigo-600">{{ $forum->title }}</a>
+
+                            <div class="flex flex-row gap-3">
+                                <h1 class="text-lg font-bold text-indigo-600">{{ $forum->user->name }}</h1>
+                                @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                                    <img class="h-8 w-8 rounded-full object-cover mr-3" src="{{ $forum->user->profile_photo_url }}" alt="{{ $forum->user->name }}" />
+                                @endif
+                            </div>
+                        </div>
+
+                        <!-- Content -->
+                        @php
+                            // Get the original content
+                            $originalContent = $forum->content;
+
+                            // Limit content to 500 characters
+                            $limitedContent = \Illuminate\Support\Str::limit($originalContent, 500, '');
+
+                            // Split the content into lines
+                            $lines = explode("\n", $limitedContent);
+
+                            // Limit to the first 5 lines
+                            $limitedLines = implode("\n", array_slice($lines, 0, 5));
+
+                            // Check if the original content exceeds 500 characters or 5 lines
+                            $finalContent = (strlen($originalContent) > 500 || count($lines) > 5) ? "{$limitedLines}..." : $limitedLines;
+                        @endphp
+
+                        <div>
+                            <p class="text-gray-400">{!! nl2br(e($finalContent)) !!}</p>
+                        </div>
+                        <div class="flex flex-row justify-between">
+                            <span class="text-gray-500">{{ $forum->created_at->format('d-m-Y H:i:s') }}</span>
+                            <span class="text-gray-500">{{ $forum->report ? $forum->report->report_count : 0 }} People Reported</span>
+                            <span class="text-gray-500">
+                                {{ $forum->comments->whereNull('parent_id')->count() }} people commented
+                            </span>
+                        </div>
+                    </div>
                 </div>
+            @endforeach
 
-                <!-- Table for displaying posts -->
-                <table class="min-w-full bg-gray-800 text-gray-200 rounded-lg">
-                    <thead class="bg-gray-700">
-                        <tr>
-                            <th class="px-6 py-3 border-b border-gray-700 text-left">Title</th>
-                            <th class="px-6 py-3 border-b border-gray-700 text-left">Category</th>
-                            <th class="px-6 py-3 border-b border-gray-700 text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Example post rows -->
-                        <tr class="bg-gray-800">
-                            <td class="px-6 py-4 border-b border-gray-700">Post Title 1</td>
-                            <td class="px-6 py-4 border-b border-gray-700">General</td>
-                            <td class="px-6 py-4 border-b border-gray-700 text-center">
-                                <div class="flex justify-center space-x-4">
-                                    {{-- <a href="{{ route('posts.edit', $post->id) }}" class="px-4 py-2 bg-yellow-500 hover:bg-yellow-400 text-white rounded-lg"> --}}
-                                    <a href="#" class="px-4 py-2 bg-yellow-500 hover:bg-yellow-400 text-white rounded-lg inline-flex items-center justify-center">
-                                        Edit
-                                    </a>
-                                    {{-- <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="inline-block"> --}}
-                                    <form action="#" method="POST" class="inline-block">
-                                        {{-- @csrf --}}
-                                        {{-- @method('DELETE') --}}
-                                        <button type="submit" class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg inline-flex items-center justify-center">
-                                            Delete
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
+            <!-- Alert for confirmation -->
+            @if(session('success'))
+                <script>
+                    alert("{{ session('success') }}");
+                </script>
+            @endif
 
-                        <tr class="bg-gray-800">
-                            <td class="px-6 py-4 border-b border-gray-700">Post Title 2</td>
-                            <td class="px-6 py-4 border-b border-gray-700">News</td>
-                            <td class="px-6 py-4 border-b border-gray-700 text-center">
-                                <div class="flex justify-center space-x-4">
-                                    <a href="#" class="px-4 py-2 bg-yellow-500 hover:bg-yellow-400 text-white rounded-lg inline-flex items-center justify-center">
-                                        Edit
-                                    </a>
-                                    <form action="#" method="POST" class="inline-block">
-                                        <button type="submit" class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg inline-flex items-center justify-center">
-                                            Delete
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            @if($errors->any())
+                <script>
+                    alert("{{ implode(' ', $errors->all()) }}");
+                </script>
+            @endif
 
-                <!-- Pagination -->
-                <div class="mt-4">
-                    {{-- {{ $posts->links() }} --}}
-                    Pagination Links
-                </div>
+            <!-- Pagination -->
+            <div>
+                {{ $forums->links() }}
             </div>
         </div>
     </div>

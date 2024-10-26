@@ -25,6 +25,10 @@
                 {{ $forums->links() }}
             </div>
 
+            @if($forums->count() == 0)
+                <h1 class="text-base text-gray-400 mt-10">You never posted a forum?, for real?, not cool!</h1>
+            @endif
+
 {{--    Forum--}}
             @foreach ($forums as $forum)
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-5 pl-7 pr-7 mb-4">
