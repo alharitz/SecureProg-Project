@@ -99,13 +99,15 @@ This will start the development server at `http://127.0.0.1:8000`.
 
 ---
 
-## Additional Commands
+## Setting-up Mailing System
 If you wanted to enable the mail system you can follow this steps :
 1. **Choose your mailing system**
+
    On this project i use google mail, if you want to use google mail you can follow this tutorial
    [Gmail for Laravel](https://medium.com/@akhmadshaleh/sending-email-with-laravel-10-and-gmail-49be01c2bc8f)
 
-2. **Setup on your .env file**
+3. **Setup on your .env file**
+
  Here how its should be looks like for gmail, other mailing system configuration could be a bit different
  ```bash
     MAIL_MAILER=smtp
@@ -119,6 +121,7 @@ If you wanted to enable the mail system you can follow this steps :
  ```
    
 3. **You good to go**
+
    For security savety do not edit on .env.example
 
 ---
