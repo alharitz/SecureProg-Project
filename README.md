@@ -108,17 +108,17 @@ If you wanted to enable the mail system you can follow this steps :
 
 3. **Setup on your .env file**
 
- Here how its should be looks like for gmail, other mailing system configuration could be a bit different
- ```bash
-    MAIL_MAILER=smtp
-    MAIL_HOST=smtp.gmail.com
-    MAIL_PORT=465
-    MAIL_USERNAME= ASK THE ADMIN FOR THE EMAIL
-    MAIL_PASSWORD="ASK THE ADMIN FOR THE PASS KEY"
-    MAIL_ENCRYPTION=tls
-    MAIL_FROM_ADDRESS="ASK THE ADMIN FOR THE EMAIL"
-    MAIL_FROM_NAME="${APP_NAME}_NO_REPLY"
- ```
+     Here how its should be looks like for gmail, other mailing system configuration could be a bit different
+     ```bash
+        MAIL_MAILER=smtp
+        MAIL_HOST=smtp.gmail.com
+        MAIL_PORT=465
+        MAIL_USERNAME= ASK THE ADMIN FOR THE EMAIL
+        MAIL_PASSWORD="ASK THE ADMIN FOR THE PASS KEY"
+        MAIL_ENCRYPTION=tls
+        MAIL_FROM_ADDRESS="ASK THE ADMIN FOR THE EMAIL"
+        MAIL_FROM_NAME="${APP_NAME}_NO_REPLY"
+     ```
    
 3. **You good to go**
 
