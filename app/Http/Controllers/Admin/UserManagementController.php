@@ -3,11 +3,28 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\User;
+
 
 class UserManagementController extends Controller
 {
     function index(){
-        return view('admin.user-management');
+        $users = User::orderBy('updated_at', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('admin.user-management', compact('users'));
+    }
+
+    public function delete($userId){
+        $user = User::find($userId);
+
+        if($user && $user->is_admin){
+            return redirect()->route('user-management')->with('error', 'Cannot delete an admin user');
+        }
+
+        User::destroy($userId);
+
+        return redirect('/admin/user-management')->with('success', 'User deleted!');
     }
 }

@@ -33,6 +33,15 @@
                         <x-nav-link href="{{ route('user-management') }}" :active="request()->routeIs('user-management')">
                             {{ __('User Management') }}
                         </x-nav-link>
+                        <x-nav-link href="{{ route('forum') }}" :active="request()->routeIs('forum')">
+                            {{ __('Forum') }}
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('forum.create') }}" :active="request()->routeIs('forum.create')">
+                            {{ __('Create Forum') }}
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('forum.edit-index') }}" :active="request()->routeIs('forum.edit-index')">
+                            {{ __('Edit Forum') }}
+                        </x-nav-link>
                     <!-- User Navigation -->
                     @else
                         <x-nav-link href="{{ route('forum') }}" :active="request()->routeIs('forum')">
@@ -129,8 +138,17 @@
                 <x-responsive-nav-link href="{{ route('user-management') }}" :active="request()->routeIs('user-management')">
                     {{ __('User Management') }}
                 </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('forum') }}" :active="request()->routeIs('forum')">
+                    {{ __('Forum') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('forum.create') }}" :active="request()->routeIs('forum.create')">
+                    {{ __('Create Forum') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('forum.edit-index') }}" :active="request()->routeIs('forum.edit-index')">
+                    {{ __('Edit Forum') }}
+                </x-responsive-nav-link>
             @else
-            <x-responsive-nav-link href="{{ route('forum') }}" :active="request()->routeIs('forum')">
+                <x-responsive-nav-link href="{{ route('forum') }}" :active="request()->routeIs('forum')">
                     {{ __('Forum') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link href="{{ route('forum.create') }}" :active="request()->routeIs('forum.create')">
