@@ -6,10 +6,10 @@
     </x-slot>
 
     <div class="py-12">
-        
+
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="mb-4">
-            {{ $forums->links() }} 
+            {{ $forums->links() }}
         </div>
 
             @foreach ($forums as $forum)
@@ -26,7 +26,7 @@
                                 @endif
                             </div>
                         </div>
-                        
+
                         <!-- Content -->
                         @php
                             // Get the original content
@@ -37,7 +37,7 @@
 
                             // Split the content into lines
                             $lines = explode("\n", $limitedContent);
-                            
+
                             // Limit to the first 5 lines
                             $limitedLines = implode("\n", array_slice($lines, 0, 5));
 
@@ -58,9 +58,22 @@
                 </div>
             @endforeach
 
+            <!-- Alert for confirmation -->
+            @if(session('success'))
+                <script>
+                    alert("{{ session('success') }}");
+                </script>
+            @endif
+
+            @if($errors->any())
+                <script>
+                    alert("{{ implode(' ', $errors->all()) }}");
+                </script>
+            @endif
+
             <!-- Pagination -->
             <div>
-                {{ $forums->links() }} 
+                {{ $forums->links() }}
             </div>
         </div>
     </div>

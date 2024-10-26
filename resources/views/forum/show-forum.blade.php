@@ -98,10 +98,17 @@
                             </div>
                         </form>
                     </div>
+
                     <!-- Alert for confirmation -->
                     @if(session('success'))
                         <script>
                             alert("{{ session('success') }}");
+                        </script>
+                    @endif
+
+                    @if(session('error'))
+                        <script>
+                            alert("{{ session('error') }}");
                         </script>
                     @endif
 
@@ -110,6 +117,7 @@
                             alert("{{ implode(' ', $errors->all()) }}");
                         </script>
                     @endif
+
                 </div>
             </div>
 

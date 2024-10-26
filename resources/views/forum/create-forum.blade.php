@@ -5,13 +5,6 @@
         </h2>
     </x-slot>
 
-    <!-- alert for uploaded forum confirmation -->
-    @if(session('success'))
-        <script>
-            alert("{{ session('success') }}");
-        </script>
-    @endif
-
     @if($errors->any())
         <script>
             alert("{{ implode(' ', $errors->all()) }}");
