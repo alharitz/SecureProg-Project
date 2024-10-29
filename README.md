@@ -68,18 +68,18 @@ This is a secure forum project built with Laravel 11, designed for user and admi
    CREATE DATABASE secure_prog;
    ```
 
-   Then, run the migrations to create the necessary tables:
+   Then, run the migrations to create the necessary tables:   
    ```bash
    php artisan migrate
    ```
 
-7. **Seed the Database (Optional)**
+8. **Seed the Database (Optional)**
    To populate the database with some sample data, you can run the database seeders:
    ```bash
    php artisan db:seed
    ```
 
-8. **Compile the Assets**
+9. **Compile the Assets**
    Compile the CSS and JavaScript files using Laravel Mix:
    ```bash
    npm run dev
@@ -147,6 +147,13 @@ If you wanted to enable the mail system you can follow this steps :
    ```bash
    php artisan test
    ```
+
+---
+
+## Important Note
+
+For all of you who already clone this repository before the latest update, there's a big change on the database structure, where i change the id to uuid, all you  have to do is delete
+the current db and make a new db then new migration. This note only for people who already use this project before this db structure update.
 
 ---
 
