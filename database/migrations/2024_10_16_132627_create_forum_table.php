@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('forums', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Ensure to link to users table
-            $table->string('title')->default(0);
+            $table->uuid('id')->primary();
+            $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade'); // Ensure to link to users table
+            $table->string('title')->default('');
             $table->text('content'); // Use text instead of string for larger content
             $table->string('profile_photo_path', 2048)->nullable();
             $table->integer('views')->default(0); // Initialize views with a default value
