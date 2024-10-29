@@ -80,7 +80,7 @@ return [
     | reset functionality, including the table utilized for token storage
     | and the user provider that is invoked to actually retrieve users.
     |
-    | The expiry time is the number of minutes that each reset token will be
+    | The expiry utime is the number of minutes that each reset token will be
     | considered valid. This security feature keeps tokens short-lived so
     | they have less time to be guessed. You may change this as needed.
     |

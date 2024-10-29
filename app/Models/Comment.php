@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Comment extends Model
 {
@@ -13,7 +14,7 @@ class Comment extends Model
         'forum_id',
         'user_id',
         'parent_id',
-        'content',        
+        'content',
     ];
 
     // A comment can have a parent comment (if it's a reply)
@@ -34,5 +35,20 @@ class Comment extends Model
     // A comment belongs to a user
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    protected $primaryKey = 'id'; // Ensures it references the UUID field
+    public $incrementing = false; // Because UUIDs are not auto-incrementing
+    protected $keyType = 'string'; // UUIDs are stored as strings
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Automatically generate UUID for 'id' field on creating a new record
+        static::creating(function ($comment) {
+            if (empty($comment->id)) {
+                $comment->id = (string) Str::uuid();
+            }
+        });
     }
 }

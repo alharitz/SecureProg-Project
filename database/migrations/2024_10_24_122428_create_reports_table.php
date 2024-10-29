@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reports', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('forum_id')->constrained('forums')->onDelete('cascade');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('forum_id')->constrained('forums')->onDelete('cascade');
             $table->unsignedInteger('report_count')->default(0);
             $table->timestamps();
         });

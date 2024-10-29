@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
@@ -62,5 +63,21 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+//    Default Creation Uuid
+    protected $primaryKey = 'id'; // Ensures it references the UUID field
+    public $incrementing = false; // Because UUIDs are not auto-incrementing
+    protected $keyType = 'string'; // UUIDs are stored as strings
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Automatically generate UUID for 'id' field on creating a new record
+        static::creating(function ($user) {
+            if (empty($user->id)) {
+                $user->id = (string) Str::uuid();
+            }
+        });
     }
 }
