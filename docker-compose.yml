@@ -1,4 +1,3 @@
-version: '3.8'
 services:
     app:
         build:
@@ -17,9 +16,16 @@ services:
             - DB_PASSWORD=root
         ports:
             - "8000:80"
-            - "5173:5173"  # For Vite
+            - "5173:5173"  # Port for Vite
+        depends_on:
+            - db
         networks:
             - laravel
+        command: >
+            sh -c "
+            php artisan migrate &&
+            npm run dev
+            "
 
     db:
         image: mysql:5.7

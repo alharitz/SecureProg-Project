@@ -14,10 +14,10 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     zip \
-    unzip
-
-# Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+    unzip \
+    nodejs \
+    npm \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -25,8 +25,14 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy project files to container
 COPY . .
 
-# Install dependencies with Composer
+# Install PHP dependencies with Composer
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
+# Install Node.js dependencies
+RUN npm install
+
+# Run Vite build for production (optional, remove if not needed for local development)
+RUN npm run build
 
 # Copy existing application environment file
 COPY .env.example .env
@@ -34,9 +40,8 @@ COPY .env.example .env
 # Generate application key
 RUN php artisan key:generate
 
-# Copy the custom php.ini file
-COPY ./docker/php/local.ini /usr/local/etc/php/conf.d/local.ini
-
-# Expose port 9000 and start PHP-FPM server
+# Expose port for PHP-FPM
 EXPOSE 9000
+
+# Start PHP-FPM server
 CMD ["php-fpm"]
