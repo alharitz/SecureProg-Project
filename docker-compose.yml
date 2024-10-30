@@ -40,7 +40,7 @@ services:
             - ./ssl:/etc/nginx/ssl
         ports:
             - "443:443"  # HTTPS
-            - "80:80"    # HTTP (for redirection to HTTPS)
+            - "8080:80"    # HTTP (for redirection to HTTPS)
         depends_on:
             - app
         networks:
