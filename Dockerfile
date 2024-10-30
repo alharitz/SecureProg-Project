@@ -1,10 +1,10 @@
-# Use official PHP image as base
+# Use official PHP 8.2 image as base
 FROM php:8.2-fpm
 
 # Set working directory
 WORKDIR /var/www
 
-# Install dependencies
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -28,19 +28,17 @@ COPY . .
 # Install PHP dependencies with Composer
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
-# Install Node.js dependencies
+# Install Node.js dependencies (for Vite)
 RUN npm install
 
-# Run Vite build for production (optional, remove if not needed for local development)
+# Build frontend assets with Vite for production
 RUN npm run build
 
-# Copy existing application environment file
+# Copy the .env example file and generate an application key
 COPY .env.example .env
-
-# Generate application key
 RUN php artisan key:generate
 
-# Expose port for PHP-FPM
+# Expose port 9000 for PHP-FPM
 EXPOSE 9000
 
 # Start PHP-FPM server
