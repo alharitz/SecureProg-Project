@@ -10,7 +10,9 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     unzip \
     git \
-    curl
+    curl \
+    nodejs \
+    npm  # Add Node.js and npm
 
 # Install PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
@@ -20,9 +22,9 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy custom PHP configurations
-COPY ./docker/php/local.ini /usr/local/etc/php/conf.d/
+COPY ./docker/local.ini /usr/local/etc/php/conf.d/
 
-# Set up work directory
+# Set up work directoryg
 WORKDIR /var/www/html
 
 # Copy application files
@@ -30,7 +32,7 @@ COPY . .
 
 # Install project dependencies
 RUN composer install
-RUN npm install && npm run build
+RUN npm install && npm run build  # Install Node dependencies and build assets
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
