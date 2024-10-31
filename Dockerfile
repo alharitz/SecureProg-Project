@@ -20,7 +20,7 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy custom PHP configurations
-COPY ./docker/local.ini /usr/local/etc/php/conf.d/
+COPY ./docker/php/local.ini /usr/local/etc/php/conf.d/
 
 # Set up work directory
 WORKDIR /var/www/html
