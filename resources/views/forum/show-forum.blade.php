@@ -15,19 +15,7 @@
 
             @if(Auth::id() !== $forum->user_id)
                 {{--            Report Forum--}}
-                <form action="{{ route('forum.report', ['forumId' => $forum->id]) }}" method="POST" onsubmit="return confirmReport()">
-                    @csrf
-                    <button class=" rounded-full bg-red-600 hover:bg-red-500 px-3 py-3 text-sm font-semibold text-white shadow-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5" />
-                        </svg>
-                    </button>
-                    <script>
-                        function confirmReport(){
-                            return confirm("Are you sure you want to report this forum?");
-                        }
-                    </script>
-                </form>
+                <livewire:report-confirmation :forumId="$forum->id"/>
             @endif
 
         </div>
@@ -101,16 +89,9 @@
                         </form>
                     </div>
 
-                    <!-- Alert for confirmation -->
-                    @if(session('success'))
+                    @if(session('errors'))
                         <script>
-                            alert("{{ session('success') }}");
-                        </script>
-                    @endif
-
-                    @if(session('error'))
-                        <script>
-                            alert("{{ session('error') }}");
+                            alert("{{ session('errors') }}");
                         </script>
                     @endif
 

@@ -3,7 +3,7 @@
 @if (! empty($greeting))
 # {{ $greeting }}
 @else
-@if ($level === 'error')
+@if ($level === 'errors')
 # @lang('Whoops!')
 @else
 # @lang('Hello!')
@@ -20,7 +20,7 @@
 @isset($actionText)
 <?php
     $color = match ($level) {
-        'success', 'error' => $level,
+        'success', 'errors' => $level,
         default => 'primary',
     };
 ?>
@@ -40,7 +40,7 @@
 {{ $salutation }}
 @else
 @lang('Regards,')<br>
-<Strikewak-Jeger></Strikewak-Jeger>
+@lang('Strikewak')
 @endif
 
 {{-- Subcopy --}}

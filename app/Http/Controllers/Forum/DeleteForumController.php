@@ -16,6 +16,9 @@ class DeleteForumController extends Controller
         }
 
         $forum->delete();
+
+        session()->flash('flash.banner', 'Yay forum deleted successfully!');
+        session()->flash('flash.bannerStyle', 'success');
         return redirect()->route('forum.edit-index')->with('success', 'Forum updated successfully');;
     }
 }

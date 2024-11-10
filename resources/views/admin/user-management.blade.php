@@ -30,18 +30,7 @@
                             <td class="px-6 py-4 border-b border-gray-700 text-center">
                                 @if(!$user->is_admin)
                                     <div class="flex justify-center space-x-4">
-                                        <form action="{{ route('user.delete', ['userId' => $user->id]) }}" method="POST" class="inline-block" onsubmit="return confirmDelete()">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg inline-flex items-center justify-center">
-                                                Delete
-                                            </button>
-                                            <script>
-                                                function confirmDelete(){
-                                                    return confirm("Are you sure you want to delete this user?");
-                                                }
-                                            </script>
-                                        </form>
+                                        <livewire:delete-user :user="$user" />
                                     </div>
                                 @else
                                     <h1 class="text-gray-500">No Action</h1>
@@ -53,14 +42,12 @@
                 </table>
 
                 @if(session('success'))
-                    <script>
-                        alert("{{ session('success') }}");
-                    </script>
+                    <livewire:delete-confirmation :successMessage="session('success')" />
                 @endif
 
-                @if(session('error'))
+            @if(session('errors'))
                     <script>
-                        alert("{{ session('error') }}");
+                        alert("{{ session('errors') }}");
                     </script>
                 @endif
 
