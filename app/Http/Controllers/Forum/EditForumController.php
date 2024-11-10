@@ -49,7 +49,8 @@ class EditForumController extends Controller
             'content' => $validated['content'],
             'forum_images_path' => $imagePath,
         ]);
-
+        session()->flash('flash.banner', 'Yay your forum successfully updated!');
+        session()->flash('flash.bannerStyle', 'success');
         return redirect()->route('forum.edit-forum', compact('forumId'))->with('success', 'Forum updated successfully');
     }
 }

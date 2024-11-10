@@ -20,11 +20,11 @@ class UserManagementController extends Controller
         $user = User::find($userId);
 
         if($user && $user->is_admin){
-            return redirect()->route('user-management')->with('error', 'Cannot delete an admin user');
+            return redirect()->route('user-management')->with('errors', 'Cannot delete an admin user');
         }
 
         User::destroy($userId);
 
-        return redirect('/admin/user-management')->with('success', 'User deleted!');
+        return redirect('/admin/user-management')->with('success', 'An impostor successfully deleted!, stay aware admin >:)');
     }
 }

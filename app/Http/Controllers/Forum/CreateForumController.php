@@ -32,7 +32,8 @@ class CreateForumController extends Controller
             'forum_images_path' => $imagePath,
             'user_id' => Auth::id(),
         ]);
-
+        session()->flash('flash.banner', 'Yay your forum successfully uploaded!');
+        session()->flash('flash.bannerStyle', 'success');
         return redirect()->route('forum')->with('success', 'Forum post created successfully!');
     }
 }

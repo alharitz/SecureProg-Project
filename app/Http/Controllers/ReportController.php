@@ -15,7 +15,7 @@ class ReportController extends Controller
         $forum = Forum::where('id', $forumId)->first();
 
         if($forum->user_id === Auth::id()){
-            return redirect()->route('forum.show', ['forumId' => $forumId])->with('error', 'Sorry you cannot report your own forum');
+            return redirect()->route('forum.show', ['forumId' => $forumId])->with('errors', 'Sorry you cannot report your own forum');
         }
 
         if($report){
@@ -26,8 +26,9 @@ class ReportController extends Controller
                 'report_count' => 1,
             ]);
         }
-
-        return redirect()->route('forum.show', ['forumId' => $forumId])->with('success', 'Forum report has been created');
+        session()->flash('flash.banner', 'Yay successfully report the forum!');
+        session()->flash('flash.bannerStyle', 'success');
+        return redirect()->route('forum');
     }
 
     public function review($forumId){

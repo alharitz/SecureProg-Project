@@ -8,12 +8,6 @@
     <<div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- alert for uploaded forum confirmation -->
-            @if(session('success'))
-                <script>
-                    alert("{{ session('success') }}");
-                </script>
-            @endif
-
             @if($errors->any())
                 <script>
                     alert("{{ implode(' ', $errors->all()) }}");
